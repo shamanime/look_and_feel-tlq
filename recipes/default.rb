@@ -14,7 +14,9 @@ if node[:locales]
   node[:locales].each do |locale|
     bash "adding #{locale} to /var/lib/locales/supported.d/local" do
       user 'root'
-      echo locale >> "/var/lib/locales/supported.d/local"
+      code <<-EOC
+        echo locale >> "/var/lib/locales/supported.d/local"
+      EOC
     end
   end
   bash "Including new locales" do
